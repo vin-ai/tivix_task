@@ -1,0 +1,9 @@
+{% extends 'tivix/base_layout.html' %}
+
+{% block main_content %}
+<form method="post">{% csrf_token %}
+    <p>Are you sure you want to delete teacher?</p>
+    <h1>"{{ object }}"</h1>
+    <button type="submit" class="btn btn-danger">Yes delete</button>
+</form>
+{% endblock main_content %}

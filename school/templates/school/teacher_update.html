@@ -1,0 +1,8 @@
+{% extends 'tivix/base_layout.html' %}
+{% block main_content %}
+<h1>Update Teacher <small class="text-muted">{{ object }}</small></h1>
+<form method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Update Teacher">
+</form>
+{% endblock main_content %}

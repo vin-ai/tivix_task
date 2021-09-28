@@ -1,0 +1,25 @@
+{% extends 'tivix/base_layout.html' %}
+{% block main_content %}
+<p class="text-muted mt-2 mb-0">Teacher</p>
+<h1>{{ object }}</h1>
+
+{% if object.student_set %}
+  <h2 class="text-muted h5">Associated Students:</h2>
+  <ol>
+  {% for student in object.student_set.all %}
+    <li>
+    {{ student }}
+    {% if student.star_student %}
+      <i class="bi bi-star-fill text-warning"></i>
+    {% endif %}
+    </li>
+  {% endfor %}
+  </ol>
+{% endif %}
+
+<a href="{% url 'school:create-student' %}?teacher={{ object.id }}" class="btn btn-primary">
+  <i class="bi bi-plus-lg"></i>
+  Add New Student
+</a>
+
+{% endblock main_content %}

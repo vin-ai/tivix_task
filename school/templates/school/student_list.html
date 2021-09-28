@@ -1,0 +1,43 @@
+{% extends 'tivix/base_layout.html' %} {% block main_content %}
+<p></p>
+<h1>Students
+  <a href="{% url 'school:create-student' %}" class="btn btn-primary float-end">
+    <i class="bi bi-plus-lg"></i>
+    Add New Student
+  </a>
+</h1>
+<hr>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+<ul>
+  {% for student in object_list %}
+  <li>
+    <a href="{% url 'school:update-student' pk=student.pk %}" title="Update Student">
+      <i class="bi bi-pencil"></i>
+    </a>
+    <a href="{% url 'school:delete-student' pk=student.pk %}" class="text-danger" title="Delete Student">
+      <i class="bi bi-trash"></i>
+    </a>
+
+    {{ student }}
+    {% if student.star_student %}
+      <a href="{% url 'school:update-student' pk=student.pk %}?star_student=0" title="Unstar {{ student }}">
+        <i class="bi bi-star-fill text-warning"></i>
+      </a>
+    {% else %}
+      <a href="{% url 'school:update-student' pk=student.pk %}?star_student=1" title="Star {{ student }}">
+        <i class="bi bi-star text-warning"></i>
+      </a>
+    {% endif %}
+  </li>
+  {% empty %}
+  <li>No students yet.</li>
+  {% endfor %}
+</ul>
+
+{% endblock main_content %}

@@ -1,0 +1,39 @@
+{% extends 'tivix/base_layout.html' %} {% block main_content %}
+<p></p>
+<h1>Teachers
+<a href="{% url 'school:create-teacher' %}" class="btn btn-primary float-end">
+    <i class="bi bi-plus-lg"></i>
+    Add New Teacher
+  </a>
+</h1>
+<hr>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+<ul>
+  {% for teacher in object_list %}
+  <li>
+    <a href="{% url 'school:update-teacher' pk=teacher.pk %}" title="Update Tacher">
+      <i class="bi bi-pencil"></i>
+    </a>
+    <a href="{% url 'school:delete-teacher' pk=teacher.pk %}"
+      class="text-danger" title="Delete Teacher">
+      <i class="bi bi-trash"></i>
+    </a>
+    <a href="{% url 'school:detail-teacher' pk=teacher.pk %}"
+      class="text-success" title="View Teacher">
+      <i class="bi bi-list"></i>
+    </a>
+
+    {{ teacher }}
+  </li>
+  {% empty %}
+  <li>No teachers yet.</li>
+  {% endfor %}
+</ul>
+
+{% endblock main_content %}

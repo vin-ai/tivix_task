@@ -1,0 +1,26 @@
+{% extends 'tivix/base_layout.html' %} {% block main_content %}
+{% load static %}
+<p></p>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="card">
+        <img src="{% static 'undraw_teacher_35j2.svg' %}" class="card-img-top" alt="Add Teacher" height="120">
+        <div class="card-footer">
+          <a href="{% url 'school:list-teachers' %}" class="btn btn-primary">List Teachers</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card">
+        <img src="{% static 'undraw_exams_g4ow.svg' %}" class="card-img-top" alt="Add Student" height="120">
+        <div class="card-footer">
+          <a href="{% url 'school:list-students' %}" class="btn btn-primary">List Students</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock main_content %}
