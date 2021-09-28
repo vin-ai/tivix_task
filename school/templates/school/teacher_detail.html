@@ -3,23 +3,82 @@
 <p class="text-muted mt-2 mb-0">Teacher</p>
 <h1>{{ object }}</h1>
 
+{% if messages %}
+<div class="alert alert-success">
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+</div>
+{% endif %}
+
+<div class="card mb-4 text-dark bg-light" style="max-width: 20rem;">
+  <div class="card-body">
+    <form method="POST">
+      {% csrf_token %}
+      <div style="dispplay: none;">
+        {% with student_form.teacher as field %}
+        <input type="hidden" name={{ field.name }} value={{ field.value }}>
+        {% endwith %}
+      </div>
+      <div class="mb-3">
+        {% with student_form.name as field %}
+          <label for="{{ field.id_for_label }}" class="form-label">
+          {{ field.label }}:
+          </label>
+          {{ field }}
+          {% if field.errors %}
+          <p class="text-danger">Error</p>
+          {% endif %}
+        {% endwith %}
+      </div>
+      
+      <div class="mb-3 form-check">
+        {% with student_form.star_student as field %}
+          {{ field }}
+          <label class="form-check-label" for="{{ field.id_for_label }}">
+            {{ field.label }}
+          </label>
+        {% endwith %}
+      </div>
+      <button type="submit" class="btn btn-primary">Add Student</button>
+    </form>
+  </div>
+</div>
+
+{% comment %} {{ student_form.as_p }} {% endcomment %}
+
 {% if object.student_set %}
   <h2 class="text-muted h5">Associated Students:</h2>
-  <ol>
+  <ul class="list-group list-group-flush">
   {% for student in object.student_set.all %}
-    <li>
+    <li class="list-group-item">
+    <a href="{% url 'school:update-student' pk=student.pk %}" title="Update Student">
+      <i class="bi bi-pencil"></i>
+    </a>
+    <a href="{% url 'school:delete-student' pk=student.pk %}" class="text-danger" title="Delete Student">
+      <i class="bi bi-trash"></i>
+    </a>
+
     {{ student }}
     {% if student.star_student %}
-      <i class="bi bi-star-fill text-warning"></i>
+      <a href="{% url 'school:update-student' pk=student.pk %}?star_student=0" title="Unstar {{ student }}">
+        <i class="bi bi-star-fill text-warning"></i>
+      </a>
+    {% else %}
+      <a href="{% url 'school:update-student' pk=student.pk %}?star_student=1" title="Star {{ student }}">
+        <i class="bi bi-star text-warning"></i>
+      </a>
     {% endif %}
-    </li>
+  </li>
   {% endfor %}
   </ol>
 {% endif %}
 
-<a href="{% url 'school:create-student' %}?teacher={{ object.id }}" class="btn btn-primary">
+{% comment %} <a href="{% url 'school:create-student' %}?teacher={{ object.id }}" class="btn btn-primary">
   <i class="bi bi-plus-lg"></i>
   Add New Student
-</a>
+</a> {% endcomment %}
 
 {% endblock main_content %}

@@ -11,7 +11,7 @@ class Teacher(models.Model):
         return str(self.name)
 
     def get_absolute_url(self):
-        return reverse("teacher-detail", kwargs={"pk": self.pk})
+        return reverse("school:detail-teacher", kwargs={"pk": self.pk})
 
 
 class Student(models.Model):
@@ -22,6 +22,3 @@ class Student(models.Model):
 
     def __str__(self) -> str:
         return str(self.name)
-
-    def get_absolute_url(self):
-        return reverse("student-detail", kwargs={"pk": self.pk})
