@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # API things
+    'graphene_django',
     # Project Apps
     'school.apps.SchoolConfig',
 ]
@@ -141,6 +143,10 @@ STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesSto
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+GRAPHENE = {
+    "SCHEMA": "tivik_task.schema.schema"
+}
 
 if DEBUG:
     print("\033[33m*** Warning - Debug Mode is On ***\033[m")

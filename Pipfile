@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 django = "==3.2.7"
 coverage = "*"
+graphene-django = "*"
+django-filter = "*"
 
 [dev-packages]
 autopep8 = "*"
