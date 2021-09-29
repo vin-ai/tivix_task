@@ -1,0 +1,21 @@
+version: "3.9"
+   
+services:
+  web:
+    build: .
+    command: sh -c "pipenv run python manage.py migrate && pipenv run gunicorn tivix.wsgi --bind 0.0.0.0:8000"
+    volumes:
+      - web_static:/app/static_collected
+    expose:
+      - 8000
+  nginx:
+    build: ./nginx
+    volumes:
+      - web_static:/app/static_collected
+    ports:
+      - 80:80
+    depends_on:
+      - web
+
+volumes:
+  web_static:

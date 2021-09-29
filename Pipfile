@@ -8,6 +8,7 @@ django = "==3.2.7"
 coverage = "*"
 graphene-django = "*"
 django-filter = "*"
+gunicorn = "*"
 
 [dev-packages]
 autopep8 = "*"
